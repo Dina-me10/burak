@@ -1,4 +1,15 @@
 print("MIT TASKLAR :)")
+print("MIT TASK N")
+
+
+def palindromCheck(text: str) -> bool:
+    cleaned_text = text.lower()
+    return cleaned_text == cleaned_text[::-1]
+
+
+print(palindromCheck("dina"))
+print(palindromCheck("mom"))
+
 
 print("MIT TASK M")
 
