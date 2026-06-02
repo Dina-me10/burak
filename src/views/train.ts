@@ -8,3 +8,9 @@
    
     -Error handling
 */
+/*
+
+    TRADITIONAL API
+    REST API 
+    GRAPHQL API
+*/

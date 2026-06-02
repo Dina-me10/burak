@@ -10,9 +10,9 @@ routerAdmin.get("/login", restaurantController.getLogin);
 routerAdmin.post("/login", restaurantController.processLogin);
 
 // Signup
-routerAdmin.get("/signup", restaurantController.getSignup);
 
-routerAdmin.post("/signup", restaurantController.getSignup);
+routerAdmin.get("/signup", restaurantController.getSignup);
+routerAdmin.post("/signup", restaurantController.processSignup);
 
 /*****product ****** */
 
