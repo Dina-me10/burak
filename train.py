@@ -1,4 +1,16 @@
 print("MIT TASKLAR :)")
+
+print("MIT TASK O")
+
+
+def calculate_sum_of_numbers(elements):
+    return sum(item for item in elements if isinstance(item, (int, float)) and not isinstance(item, bool))
+
+
+result = calculate_sum_of_numbers([10, "10", "dina", True, 20])
+print(result)
+
+
 print("MIT TASK N")
 
 
