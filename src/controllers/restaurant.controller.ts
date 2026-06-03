@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { LoginInput, MemberInput } from "../libs/types/member"; // Gullu qavs qo'shildi!
-import { MemberType } from "../libs/enums/member.enum"; // Gullu qavs qo'shildi!
+import { LoginInput, MemberInput } from "../libs/types/member";
+import { MemberType } from "../libs/enums/member.enum";
 import MemberService from "../models/Member.service";
 import { T } from "../libs/types/common";
 
