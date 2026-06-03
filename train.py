@@ -1,5 +1,17 @@
 print("MIT TASKLAR :)")
 
+print("MIT TASK P")
+
+
+def object_to_array(obj):
+
+    return [[k, v] for k, v in obj.items()]
+
+
+result = object_to_array({"dina": 21, "Aisha": 20})
+print(result)
+
+
 print("MIT TASK O")
 
 
