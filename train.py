@@ -1,5 +1,15 @@
 print("MIT TASKLAR :)")
 
+print("MIT TASK Q")
+
+
+def has_property(obj: dict, prop: str) -> bool:
+    return prop in obj
+
+
+print(has_property({"name": "KYUNGSUNG UNIVERSITY"}, "name"))
+print(has_property({"name": "KYUNGSUNG UNIVERSITY"}, "color"))
+
 print("MIT TASK P")
 
 
