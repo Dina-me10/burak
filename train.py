@@ -1,5 +1,15 @@
 print("MIT TASKLAR :)")
 
+print("MIT TASK R")
+
+
+def calculate(expression: str) -> int | float:
+    return eval(expression)
+
+
+print(calculate("1 + 3"))
+print(calculate("1 + 2"))
+
 print("MIT TASK Q")
 
 
