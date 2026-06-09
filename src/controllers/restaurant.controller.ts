@@ -3,13 +3,13 @@ import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.enum";
 import MemberService from "../models/Member.service";
 import { T } from "../libs/types/common";
+import { Message } from "../libs/Errors";
 
 const restaurantController: T = {};
 
 restaurantController.goHome = (req: Request, res: Response) => {
   try {
     res.render("home");
-    //send | json | redirect | end | render
   } catch (err) {
     console.log("Error, goHome:", err);
   }
@@ -44,7 +44,6 @@ restaurantController.processSignup = async (
 
     const memberService = new MemberService();
     const result = await memberService.signup(newMember);
-    //TODO SESSIONS AUTHENTICATION
 
     req.session.member = result;
     req.session.save(function () {
@@ -67,7 +66,6 @@ restaurantController.processLogin = async (
 
     const memberService = new MemberService();
     const result = await memberService.login(input);
-    //TODO SESSIONS AUTHENTICATION
 
     req.session.member = result;
     req.session.save(function () {
@@ -75,6 +73,21 @@ restaurantController.processLogin = async (
     });
   } catch (err) {
     console.log("Error, processLogin:", err);
+    res.send(err);
+  }
+};
+
+restaurantController.checkAuthSession = async (
+  req: AdminRequest,
+  res: Response,
+) => {
+  try {
+    console.log("checkAuthSession");
+    if (req.session?.member)
+      res.send(`<script> alert("${req.session.member.memberNick}") </script>`);
+    else res.send(`<script> alert("${Message.NOT_AUTHENTICATED}") </script>`);
+  } catch (err) {
+    console.log("Error, checkAuthSession:", err);
     res.send(err);
   }
 };
