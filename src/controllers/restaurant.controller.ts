@@ -3,15 +3,16 @@ import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.enum";
 import MemberService from "../models/Member.service";
 import { T } from "../libs/types/common";
-import { Message } from "../libs/Errors";
+import Errors, { Message } from "../libs/Errors";
 
 const restaurantController: T = {};
 
 restaurantController.goHome = (req: Request, res: Response) => {
   try {
-    res.render("home");
+    res.render("home"); //SEND ,RENDWER. REDIRECT, JSON
   } catch (err) {
     console.log("Error, goHome:", err);
+    res.redirect("/admin");
   }
 };
 
@@ -20,6 +21,7 @@ restaurantController.getSignup = (req: Request, res: Response) => {
     res.render("signup");
   } catch (err) {
     console.log("Error, getSignup:", err);
+    res.redirect("/admin");
   }
 };
 
@@ -28,6 +30,7 @@ restaurantController.getLogin = (req: Request, res: Response) => {
     res.render("login");
   } catch (err) {
     console.log("Error, getLogin:", err);
+    res.redirect("/admin");
   }
 };
 
@@ -37,13 +40,11 @@ restaurantController.processSignup = async (
 ) => {
   try {
     console.log("processSignup");
-    console.log("body:", req.body);
 
     const newMember: MemberInput = req.body;
     newMember.memberType = MemberType.RESTAURANT;
-
     const memberService = new MemberService();
-    const result = await memberService.signup(newMember);
+    const result = await memberService.processSignup(newMember);
 
     req.session.member = result;
     req.session.save(function () {
@@ -51,7 +52,11 @@ restaurantController.processSignup = async (
     });
   } catch (err) {
     console.log("Error, processSignup:", err);
-    res.send(err);
+    const message =
+      err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
+    res.send(
+      `<script> alert("${message}"); window.location.replace('admin/signup') </script>`,
+    );
   }
 };
 
@@ -61,11 +66,10 @@ restaurantController.processLogin = async (
 ) => {
   try {
     console.log("processLogin");
-    console.log("body:", req.body);
-    const input: LoginInput = req.body;
 
-    const memberService = new MemberService();
-    const result = await memberService.login(input);
+    const input: LoginInput = req.body;
+    const memberService = new MemberService(); // ← add this line
+    const result = await memberService.processLogin(input);
 
     req.session.member = result;
     req.session.save(function () {
@@ -73,7 +77,23 @@ restaurantController.processLogin = async (
     });
   } catch (err) {
     console.log("Error, processLogin:", err);
-    res.send(err);
+    const message =
+      err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
+    res.send(
+      `<script> alert("${message}"); window.location.replace('admin/login') </script>`,
+    );
+  }
+};
+
+restaurantController.logout = async (req: AdminRequest, res: Response) => {
+  try {
+    console.log("logout");
+    req.session.destroy(function () {
+      res.redirect("/admin");
+    });
+  } catch (err) {
+    console.log("Error, logout:", err);
+    res.send("/admin");
   }
 };
 

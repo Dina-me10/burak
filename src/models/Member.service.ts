@@ -29,7 +29,6 @@ class MemberService {
   }
 
   public async login(input: LoginInput): Promise<Member> {
-    // TODO: Consider member status later
     const member = await this.memberModel
       .findOne(
         { memberNick: input.memberNick },
@@ -48,7 +47,7 @@ class MemberService {
       throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
     }
 
-    return await this.memberModel.findById(member._id).lean().exec();
+    return await this.memberModel.findById(member._id).exec(); // removed .lean()
   }
 
   /** SSR */
