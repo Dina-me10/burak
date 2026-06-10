@@ -15,7 +15,7 @@ class MemberService {
   /** SPA */
 
   public async signup(input: MemberInput): Promise<Member> {
-    const salt = await bcrypt.genSalt();
+    const salt = await bcrypt.genSalt(); //Parolni shifrlash uchun salt yaratiladi va parol hash qilinadi.
     input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
 
     try {

@@ -9,7 +9,7 @@ const restaurantController: T = {};
 
 restaurantController.goHome = (req: Request, res: Response) => {
   try {
-    res.render("home"); //SEND ,RENDWER. REDIRECT, JSON
+    res.render("home"); //SEND ,RENDER. REDIRECT, JSON
   } catch (err) {
     console.log("Error, goHome:", err);
     res.redirect("/admin");
@@ -39,7 +39,7 @@ restaurantController.processSignup = async (
   res: Response,
 ) => {
   try {
-    console.log("processSignup");
+    console.log("processSignup"); //processsignup ma'lumot oladi → DB ga saqlaydi → session ochadi
 
     const newMember: MemberInput = req.body;
     newMember.memberType = MemberType.RESTAURANT;
