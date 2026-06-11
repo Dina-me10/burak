@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import Errors from "../libs/Errors";
 import { T } from "../libs/types/common";
 import ProductService from "../models/Product.service";
-
 const productService = new ProductService();
 
 const productController: T = {};
