@@ -45,7 +45,7 @@ restaurantController.processSignup = async (
       throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
 
     const newMember: MemberInput = req.body;
-    newMember.memberImage = file?.path;
+    newMember.memberImage = file?.path.replace(/\\/g, "/");
     newMember.memberType = MemberType.RESTAURANT;
     const memberService = new MemberService();
     const result = await memberService.processSignup(newMember);
@@ -65,23 +65,28 @@ restaurantController.processSignup = async (
 };
 
 restaurantController.processLogin = async (
+  //restaurant.controller methodi va async methodi bor
   req: AdminRequest,
-  res: Response,
+  res: Response, //unga re.va res qvolib
 ) => {
   try {
-    console.log("processLogin");
+    //standartlarga kora  try va catch qildik
+    console.log("processLogin"); //login standart kirib keganini tasdiqlab
 
-    const input: LoginInput = req.body;
-    const memberService = new MemberService(); // ← add this line
-    const result = await memberService.processLogin(input);
+    const input: LoginInput = req.body; //frontenddan kegan body qismini const inputga tenglab olamiz.
+    const memberService = new MemberService();
+    const result = await memberService.processLogin(input); //member service objectni process.login methodini
+    //call qlamz (input) argument qlamz
 
-    req.session.member = result;
+    req.session.member = result; //cookie ichiga borb sidni joylavomz
     req.session.save(function () {
+      //sessionlar collectionga borb sidga member malumotni  saqlayabdi
+      //sessionlarni saqlab redirect orqali admion sahifaga yonaltiramiz
       res.redirect("/admin/product/all");
     });
   } catch (err) {
     console.log("Error, processLogin:", err);
-    const message =
+    const message = //xatolik bosa frontendga yuboradi
       err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
     res.send(
       `<script> alert("${message}"); window.location.replace('admin/login') </script>`,

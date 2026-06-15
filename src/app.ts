@@ -4,15 +4,15 @@ import router from "./router"; // React (SPA) uchun router
 import routerAdmin from "./routerAdmin";
 import morgan from "morgan";
 import { MORGAN_FORMAT } from "./libs/config";
-
-import session from "express-session";
-import ConnectMongoDB from "connect-mongodb-session";
 import { T } from "./libs/types/common";
 
-const MongoDBStore = ConnectMongoDB(session);
+import session from "express-session";
+import ConnectMongoDB from "connect-mongodb-session"; //sessions bn ishlash uchun
 
+const MongoDBStore = ConnectMongoDB(session); //store bn sessionni bir biriga boglimnz
+//mongostore class hosil qildik
 const store = new MongoDBStore({
-  uri: String(process.env.MONGO_URL),
+  uri: String(process.env.MONGO_URL), //bu database link olib session hosilq iladi
   collection: "sessions",
 });
 
@@ -26,18 +26,21 @@ app.use(morgan(MORGAN_FORMAT));
 /** 2-SESSIONS **/
 app.use(
   session({
-    secret: String("process.env.SESSION_SECRET"),
+    secret: String(process.env.SESSION_SECRET), //Cookie ichidagi SID (Session ID) kalitini shifrlash
+    //(himoya qilish) uchun ishlatiladigan maxfiy soʻz. U xavfsizlik uchun .env faylidan oʻqib olinmoqda
+
     cookie: {
       maxAge: 1000 * 3600 * 6, //6 HOURS
     },
     store: store,
-    resave: true, //10;30 auth => 13:30 12:00 => 15:00    saveUninitialized: true,
+    resave: true, //10;30 auth => 13:30 12:00 => 15:00
+    saveUninitialized: true,
   }),
 );
 
 app.use(function (req, res, next) {
   const sessionInstance = req.session as T;
-  res.locals.member = sessionInstance.member;
+  res.locals.member = sessionInstance.member; //member malumotlani locals ga joylab qoydik
   next();
 });
 

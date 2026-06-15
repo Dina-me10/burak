@@ -27,27 +27,31 @@ class MemberService {
       throw new Errors(HttpCode.BAD_REQUEST, Message.USED_NICK_PHONE);
     }
   }
+  //service model ichdan
 
   public async login(input: LoginInput): Promise<Member> {
-    const member = await this.memberModel
+    const member = await this.memberModel //schema modelni
       .findOne(
+        //findone static methodini ishga tushirdik
         { memberNick: input.memberNick },
-        { memberNick: 1, memberPassword: 1 },
+        { memberNick: 1, memberPassword: 1 }, //2 ta qiymatni argument sifatida olib
       )
-      .exec();
+      .exec(); //natijanni kutib const memberga tengladik
 
-    if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
+    if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK); //member malumoti bomasqa bunaqa member yoq didi
 
     const isMatch = await bcrypt.compare(
-      input.memberPassword,
-      member.memberPassword,
+      //bcrypt objectini compare methodi ishlab
+      input.memberPassword, //frontenddan kegan qiymat
+      member.memberPassword, //databasedagi password.. wait kutilib isMatchga tenglandi
     );
 
     if (!isMatch) {
-      throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
+      throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD); //malumot mos kemasa xatolik
     }
 
-    return await this.memberModel.findById(member._id).exec(); // removed .lean()
+    return await this.memberModel.findById(member._id).exec(); //member schema model findbyyifid methodi orqali (memberid argumet) exec kutib
+    // rewturn qvomiz
   }
 
   /** SSR */

@@ -1,6 +1,14 @@
 <%- include('includes/header') %>
-  <body>
-    <div>SIGNUP PAGE</div>
-  </body>
+<body>
+  <div>
+    <form action="/admin/signup" method="POST" enctype="multipart/form-data">
+      <input type="text" name="memberNick" placeholder="Nick" required />
+      <input type="text" name="memberPhone" placeholder="Phone" required />
+      <input type="password" name="memberPassword" placeholder="Password" required />
+      <input type="file" name="memberImage" required />
+      <button type="submit">Signup</button>
+    </form>
+  </div>
+</body>
 </html>
-<% - include ('includes/footer') %>
+<%- include('includes/footer') %>
