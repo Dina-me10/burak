@@ -1,5 +1,19 @@
 print("MIT TASKLAR :)")
 
+print("MIT TASK T")
+
+
+def mergeSortedArrays(arr1, arr2):
+    return sorted(arr1 + arr2)
+
+
+example1 = [10, 3, 2]
+example2 = [9, 0]
+
+result = mergeSortedArrays(example1, example2)
+print(result)
+
+
 print("MIT TASK S")
 
 
