@@ -105,9 +105,9 @@ class MemberService {
   }
 
   public async getUsers(): Promise<Member[]> {
-    const result = await this.memberModel
-      .find({ memberType: MemberType.USER })
-      .exec();
+    const result = await this.memberModel //this.memberModel — MongoDB bilan ishlovchi schema/model
+      .find({ memberType: MemberType.USER }) //faqat memberType "USER" bo'lganlarni filterlab izlaymiz (restoranlarni emas)
+      .exec(); //query'ni haqiqatda bajarib, natijani Promise sifatida qaytaradi
     if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
     return result;
@@ -115,9 +115,12 @@ class MemberService {
 
   public async updateChosenUser(input: MemberUpdateInput): Promise<Member> {
     const memberId = shapeIntoMongooseObjectId(input._id);
+    //input._id — string ko'rinishida keladi, MongoDB esa ObjectId talab qiladi, shu funksiya orqali to'g'ri formatga o'tkazamiz
 
     const result = await this.memberModel
       .findOneAndUpdate({ _id: memberId }, input, { new: true })
+      //findOneAndUpdate — berilgan _id bo'yicha bitta dokumentni topib, input ichidagi maydonlar bilan yangilaydi
+      //{ new: true } — yangilangandan keyingi (yangi) holatni qaytaradi, eski holatni emas
       .exec();
 
     if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
