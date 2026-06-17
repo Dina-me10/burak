@@ -16,14 +16,14 @@ const store = new MongoDBStore({
   collection: "sessions",
 });
 
-/** 1-ENTRANCE **/
-const app = express();
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(morgan(MORGAN_FORMAT));
+/** 1-ENTRANCE **/ //MIDDLEWARE DESIGN PATTERN
+const app = express(); //external package
+app.use(express.static(path.join(__dirname, "public"))); //public folderni ochiqlaydi
+app.use(express.urlencoded({ extended: true })); //traditional api ni support qiladi
+app.use(express.json()); //rest api suport
+app.use(morgan(MORGAN_FORMAT)); //login standartlarni qurib beradi
 
-/** 2-SESSIONS **/
+/** 2-SESSIONS **/ //REQ+SESSION TAMGA QURISH /TASDIQLASH
 app.use(
   session({
     secret: String(process.env.SESSION_SECRET), //Cookie ichidagi SID (Session ID) kalitini shifrlash

@@ -40,7 +40,7 @@ restaurantController.processSignup = async (
 ) => {
   try {
     console.log("processSignup"); //processsignup ma'lumot oladi → DB ga saqlaydi → session ochadi
-    const file = req.file;
+    const file = req.file; //fileni qayerga saqlaganini korsatadi
     if (!file)
       throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
 
@@ -106,6 +106,26 @@ restaurantController.logout = async (req: AdminRequest, res: Response) => {
   }
 };
 
+restaurantController.getUsers = async (req: Request, res: Response) => {
+  try {
+    console.log("getUsers");
+    const memberService = new MemberService();
+    const result = await memberService.getUsers();
+
+    res.render("users", { users: result });
+  } catch (err) {
+    console.log("Error, getUsers:", err);
+    res.redirect("/admin/login");
+  }
+};
+
+restaurantController.updateChosenUser = (req: Request, res: Response) => {
+  try {
+    console.log("updateChosenUser");
+  } catch (err) {
+    console.log("Error, updateChosenUser:", err);
+  }
+};
 restaurantController.checkAuthSession = async (
   req: AdminRequest,
   res: Response,

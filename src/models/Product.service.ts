@@ -19,6 +19,8 @@ class ProductService {
   /** SSR */
   public async getAllProducts(): Promise<Product[]> {
     const result = await this.productModel.find().exec();
+    //Bu MongoDB-ga yuborilgan so'rov. .find() ichiga hech qanday shart
+    //  berilmagani uchun u bazadagi barcha mahsulotlarni oqib keladi.
     if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
     return result;

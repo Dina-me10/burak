@@ -15,10 +15,14 @@ const productController: T = {};
 productController.getAllProducts = async (req: Request, res: Response) => {
   try {
     console.log("getAllProducts");
-    const data = await productService.getAllProducts();
+
+    const data = await productService.getAllProducts(); // Servicedagi yuqoridagi funksiyani chaqiramiz va
+    // undan kelgan mahsulotlarni 'data' o'zgaruvchisiga saqlaymiz
     console.log("data:", data);
 
     res.render("products", { products: data });
+    //'products.ejs' shablonini ishga tushiramiz
+    // va uning ichiga 'products' nomi bilan 'data' (mahsulotlarimizni) joylab, brauzerga yuboramiz
   } catch (err) {
     console.log("Error, getAllProducts:", err);
     if (err instanceof Errors) res.status(err.code).json(err);
@@ -33,6 +37,7 @@ productController.createNewProduct = async (
   try {
     console.log("createNewProduct");
     if (!req.files?.length)
+      ///Agar so'rovda rasmlar kelmagan bo'lsa xatolik qaytadi
       throw new Errors(HttpCode.INTERNAL_SERVER_ERROR, Message.CREATE_FAILED);
 
     const data: ProductInput = req.body;
@@ -61,11 +66,12 @@ productController.updateChosenProduct = async (req: Request, res: Response) => {
   try {
     console.log("updateChosenProduct");
 
-    // FIXED: Added "as string" type assertion to resolve the TypeScript mismatch
+    //o'zgartirilishi kerak bo'lgan mahsulot ID-sini olamiz (masalan: /product/12345)
     const id = req.params.id as string;
-    console.log("id:", id);
+    console.log("id:", id); //// Olingan ID to'g'riligini tekshirish uchun konsolga chiqaramiz
 
     const result = await productService.updateChosenProduct(id, req.body);
+    //ichida mahsulotning o'zgargan yangi narxi, nomi yoki holati keladi
 
     res.status(HttpCode.OK).json({ data: result });
   } catch (err) {
