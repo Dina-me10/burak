@@ -40,6 +40,7 @@ restaurantController.processSignup = async (
 ) => {
   try {
     console.log("processSignup"); //processsignup ma'lumot oladi → DB ga saqlaydi → session ochadi
+    console.log("req.body:", req.body);
     const file = req.file; //fileni qayerga saqlaganini korsatadi
     if (!file)
       throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
