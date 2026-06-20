@@ -1,5 +1,20 @@
 print("MIT TASKLAR :)")
 
+print("MIT TASK V")
+
+
+def countChars(text):
+    result = {}
+    for char in text:
+        if char in result:
+            result[char]
+        else:
+            result[char] = 1
+    return result
+
+
+print(countChars("HELLO DINA"))
+
 print("MIT TASK T")
 
 
