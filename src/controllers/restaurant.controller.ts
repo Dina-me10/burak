@@ -9,7 +9,7 @@ const restaurantController: T = {};
 
 restaurantController.goHome = (req: Request, res: Response) => {
   try {
-    res.render("home"); //SEND ,RENDER. REDIRECT, JSON
+    res.render("home");
   } catch (err) {
     console.log("Error, goHome:", err);
     res.redirect("/admin");
@@ -48,7 +48,7 @@ restaurantController.processSignup = async (
     newMember.memberImage = file?.path.replace(/\\/g, "/");
     newMember.memberType = MemberType.RESTAURANT;
     const memberService = new MemberService();
-    const result = await memberService.processSignup(newMember);
+    const result = await memberService.processSignup(newMember); //call
 
     req.session.member = result;
     req.session.save(function () {
@@ -59,37 +59,36 @@ restaurantController.processSignup = async (
     const message =
       err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
     res.send(
-      `<script> alert("${message}"); window.location.replace('admin/signup') </script>`,
+      `<script> alert("${message}"); window.location.replace('/admin/signup') </script>`,
     );
   }
 };
 
 restaurantController.processLogin = async (
-  //restaurant.controller methodi va async methodi bor
+  //restaurantController objectini
+  //processogin aync methodi ishga tuhadi
   req: AdminRequest,
-  res: Response, //unga re.va res qvolib
+  res: Response, //va req,res parameter bor
 ) => {
   try {
-    //standartlarga kora  try va catch qildik
-    console.log("processLogin"); //login standart kirib keganini tasdiqlab
+    console.log("processLogin"); //standartga kora login qildik
 
-    const input: LoginInput = req.body; //frontenddan kegan body qismini const inputga tenglab olamiz.
-    const memberService = new MemberService();
-    const result = await memberService.processLogin(input); //member service objectni process.login methodini
-    //call qlamz (input) argument qlamz
+    const input: LoginInput = req.body; //kirib kegan req.body ni Logininput interface orqali inputga joylashtirdik
+    const memberService = new MemberService(); //memberservice intance caqirib objectga aylantirvoldik
+    const result = await memberService.processLogin(input); //memberservice objectini processlogin methodi chqiirib
+    // inputni argument qvoldik va kuttrb resultga tengladik. va servicemodelga yol oladi CALL
 
-    req.session.member = result; //cookie ichiga borb sidni joylavomz
+    req.session.member = result; //COOKIE yaratilib , sessionga member malumotni joylimz
     req.session.save(function () {
-      //sessionlar collectionga borb sidga member malumotni  saqlayabdi
-      //sessionlarni saqlab redirect orqali admion sahifaga yonaltiramiz
-      res.redirect("/admin/product/all");
+      res.redirect("/admin/product/all"); //va callback function orqali boshqa pagega yuboradi
     });
   } catch (err) {
-    console.log("Error, processLogin:", err);
-    const message = //xatolik bosa frontendga yuboradi
+    console.log("Error, processLogin:", err); //xatolik yuz beradi
+    const message = //xatoni turiga qarab message yozadi
       err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
     res.send(
-      `<script> alert("${message}"); window.location.replace('admin/login') </script>`,
+      //xatolik bosa alert orqali loginga jonatadi
+      `<script> alert("${message}"); window.location.replace('/admin/login') </script>`,
     );
   }
 };
@@ -127,7 +126,6 @@ restaurantController.updateChosenUser = async (req: Request, res: Response) => {
     //req.body — Postman/frontenddan kelgan { _id, memberStatus, ... } ma'lumotlarini service'ga uzatamiz va yangilangan natijani kutamiz
 
     res.status(HttpCode.OK).json({ data: result });
-    //muvaffaqiyatli bo'lsa, 200 OK status bilan yangilangan member ma'lumotini JSON formatda qaytaramiz
   } catch (err) {
     console.log("Error, updateChosenUser:", err);
     if (err instanceof Errors) res.status(err.code).json(err);
@@ -142,6 +140,7 @@ restaurantController.checkAuthSession = async (
   try {
     console.log("checkAuthSession");
     if (req.session?.member)
+      //sessiya ichida foydalanuvchi (member) ma'lumotlari bor-yo'qligini tekshirad
       res.send(`<script> alert("${req.session.member.memberNick}") </script>`);
     else res.send(`<script> alert("${Message.NOT_AUTHENTICATED}") </script>`);
   } catch (err) {

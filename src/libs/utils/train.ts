@@ -10,7 +10,7 @@
 */
 /*
   REQUEST:
-    TRADITIONAL API
+    TRADITIONAL API (forn post)
     REST API 
     GRAPHQL API
 */

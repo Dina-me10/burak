@@ -82,26 +82,34 @@ class MemberService {
     }
   }
 
+  //define
   public async processLogin(input: LoginInput): Promise<Member> {
-    const member = await this.memberModel
+    //processlogin methodini input nomli parametr bor
+    //promiseda memberni qaytaradi
+    const member = await this.memberModel //memberschema modelни findone static methodi ishlab
       .findOne(
+        //2 ta argument berdik
         { memberNick: input.memberNick },
         { memberNick: 1, memberPassword: 1 },
       )
-      .exec();
+      .exec(); //exec qilib, javobni kuttirib memberga joyladik
 
     if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
+    //agarda member mavjud bolmasa xatolik beradi
 
     const isMatch = await bcrypt.compare(
-      input.memberPassword,
-      member.memberPassword,
+      //bcrypt objectini comapre methodini ishlatib
+      input.memberPassword, //inputdan kegan passwordni
+      member.memberPassword, //databasedan kegan password bn solishtiradi
     );
-
+    //va kutttirib ismatchga tengladik
     if (!isMatch) {
       throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
+      ////agar parollar mos kelmasa, ruxsat berilmagan xatolikни otadi
     }
 
     return await this.memberModel.findById(member._id).exec();
+    //parollar mos tushsa, a'zoning ID execkuttirib return qilamz
   }
 
   public async getUsers(): Promise<Member[]> {
