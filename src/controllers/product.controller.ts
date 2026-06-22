@@ -36,6 +36,7 @@ productController.createNewProduct = async (
 ) => {
   try {
     console.log("createNewProduct");
+    console.log("req.body:", req.body);
     if (!req.files?.length)
       ///Agar so'rovda rasmlar kelmagan bo'lsa xatolik qaytadi
       throw new Errors(HttpCode.INTERNAL_SERVER_ERROR, Message.CREATE_FAILED);
@@ -49,7 +50,7 @@ productController.createNewProduct = async (
 
     await productService.createNewProduct(data);
     res.send(
-      `<script> alert("Sucessfully created!"); window.location.replace('admin/product/all') </script>`,
+      `<script> alert("Sucessfully created!"); window.location.replace('/admin/product/all') </script>`,
     );
     //res.send("DONE!");
   } catch (err) {
@@ -57,7 +58,7 @@ productController.createNewProduct = async (
     const message =
       err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
     res.send(
-      `<script> alert("${message}"); window.location.replace('admin/product/all') </script>`,
+      `<script> alert("${message}"); window.location.replace('/admin/product/all') </script>`,
     );
   }
 };
