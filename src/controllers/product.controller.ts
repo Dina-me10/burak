@@ -15,9 +15,9 @@ const productController: T = {};
 productController.getAllProducts = async (req: Request, res: Response) => {
   try {
     console.log("getAllProducts");
+    const data = await productService.getAllProducts();
+    console.log("products", data);
 
-    const data = await productService.getAllProducts(); // Servicedagi yuqoridagi funksiyani chaqiramiz va
-    // undan kelgan mahsulotlarni 'data' o'zgaruvchisiga saqlaymiz
     console.log("data:", data);
 
     res.render("products", { products: data });
