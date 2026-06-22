@@ -1,5 +1,22 @@
 print("MIT TASKLAR :)")
 
+print("MIT TASK W")
+
+
+def chunkArray(arr, size):
+    result = []
+    for i in range(0, len(arr), size):
+        result.append(arr[i:i + size])
+    return result
+
+
+chunk_Names = ["dina", "Mark", "angel", "alex", "anthony", "Kevin"]
+
+
+print(chunkArray(chunk_Names, 2))
+print(chunkArray(chunk_Names, 3))
+
+
 print("MIT TASK V")
 
 
