@@ -26,7 +26,6 @@ $(function () {
     const id = e.target.id;
     const productStatus = $(e.target).val();
     console.log("id:", id);
-    console.log("productStatus:", productStatus);
 
     try {
       const response = await axios.post(`/admin/product/${id}`, {
@@ -35,7 +34,6 @@ $(function () {
       console.log("response:", response);
       const result = response.data;
       if (result.data) {
-        console.log("Product updated!");
         $(".new-product-status").blur();
       } else alert("Product update failed!");
     } catch (err) {
