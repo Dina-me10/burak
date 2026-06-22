@@ -110,7 +110,8 @@ restaurantController.getUsers = async (req: Request, res: Response) => {
   try {
     console.log("getUsers");
     const memberService = new MemberService(); //MemberService classidan yangi object(instance) yaratamiz
-    const result = await memberService.getUsers(); //service ichidagi getUsers methodini chaqirib, await bilan natijani kutamiz
+    const result = await memberService.getUsers();
+    console.log("result:", result);
 
     res.render("users", { users: result }); //"users" nomli ejs/pug sahifasini render qilamiz,
   } catch (err) {
