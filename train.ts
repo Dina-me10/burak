@@ -1,3 +1,34 @@
+console.log("MIT TASK X");
+
+function countOccurrences(obj: any, target: string): number {
+  if (typeof obj !== "object" || obj === null) {
+    return 0;
+  }
+
+  let count = 0;
+
+  for (const key in obj) {
+    if (key === target) {
+      count++;
+    }
+    count += countOccurrences(obj[key], target);
+  }
+
+  return count;
+}
+
+const chocolateShop = {
+  chocolate: "Snickers",
+  giftBox: {
+    chocolate: "Mars",
+    smallBag: {
+      chocolate: "Bounty",
+    },
+  },
+};
+
+console.log(countOccurrences(chocolateShop, "chocolate"));
+
 console.log("MIT TASK W");
 function chunkArray<T>(arr: T[], size: number): T[][] {
   const result: T[][] = [];
