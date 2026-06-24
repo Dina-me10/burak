@@ -1,5 +1,34 @@
 print("MIT TASKLAR :)")
 
+print("MIT TASK X")
+
+
+def count_occurrences(obj, target):
+    if not isinstance(obj, dict):
+        return 0
+
+    count = 0
+    for key, value in obj.items():
+        if key == target:
+            count += 1
+        count += count_occurrences(value, target)
+
+    return count
+
+
+chocolate_shop = {
+    "chocolate": "Snickers",
+    "gift_box": {
+        "chocolate": "Mars",
+        "small_bag": {
+            "chocolate": "Bounty"
+        }
+    }
+}
+
+print(count_occurrences(chocolate_shop, "chocolate"))
+
+
 print("MIT TASK W")
 
 
