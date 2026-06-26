@@ -1,3 +1,17 @@
+console.log("MIT TASK Y");
+function findIntersection(arr1: string[], arr2: string[]): string[] {
+  const set2 = new Set(arr2);
+
+  const result = arr1.filter((name) => set2.has(name));
+
+  return result.sort();
+}
+
+const names1 = ["Aisha", "Dina", "Alex", "mark"];
+const names2 = ["mark", "Angel", "Dina", "Zayn"];
+
+console.log(findIntersection(names1, names2));
+
 console.log("MIT TASK X");
 
 function countOccurrences(obj: any, target: string): number {
