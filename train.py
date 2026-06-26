@@ -1,5 +1,15 @@
 print("MIT TASKLAR :)")
 
+print("MIT TASK Y")
+
+
+def findIntersection(arr1, arr2):
+    result = list(set(arr1) & set(arr2))
+    return sorted(result)
+
+
+print(findIntersection([1, 2, 3], [3, 2, 0]))
+
 print("MIT TASK X")
 
 

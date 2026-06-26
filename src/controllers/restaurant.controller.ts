@@ -72,20 +72,19 @@ restaurantController.processLogin = async (
   res: Response, //va req,res parameter bor
 ) => {
   try {
-    console.log("processLogin"); //standartga kora login qildik
+    console.log("processLogin");
 
-    const input: LoginInput = req.body; //kirib kegan req.body ni Logininput interface orqali inputga joylashtirdik
-    const memberService = new MemberService(); //memberservice intance caqirib objectga aylantirvoldik
-    const result = await memberService.processLogin(input); //memberservice objectini processlogin methodi chqiirib
-    // inputni argument qvoldik va kuttrb resultga tengladik. va servicemodelga yol oladi CALL
+    const input: LoginInput = req.body;
+    const memberService = new MemberService();
+    const result = await memberService.processLogin(input);
 
-    req.session.member = result; //COOKIE yaratilib , sessionga member malumotni joylimz
+    req.session.member = result;
     req.session.save(function () {
-      res.redirect("/admin/product/all"); //va callback function orqali boshqa pagega yuboradi
+      res.redirect("/admin/product/all");
     });
   } catch (err) {
-    console.log("Error, processLogin:", err); //xatolik yuz beradi
-    const message = //xatoni turiga qarab message yozadi
+    console.log("Error, processLogin:", err);
+    const message =
       err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
     res.send(
       //xatolik bosa alert orqali loginga jonatadi
