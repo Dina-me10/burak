@@ -1,3 +1,20 @@
+console.log("MIT TASK Z");
+
+function sumEvens(arr: number[]): number {
+  let total: number = 0;
+
+  for (const num of arr) {
+    if (num % 2 === 0) {
+      total += num;
+    }
+  }
+
+  return total;
+}
+
+console.log(sumEvens([2, 2, 3, 3]));
+console.log(sumEvens([10, 15, 20, 25]));
+
 console.log("MIT TASK Y");
 function findIntersection(arr1: string[], arr2: string[]): string[] {
   const set2 = new Set(arr2);
