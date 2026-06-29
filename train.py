@@ -1,5 +1,20 @@
 print("MIT TASKLAR :)")
 
+print("MIT TASK Z")
+
+
+def sumEvens(arr):
+    total = 0
+    for num in arr:
+
+        if num % 2 == 0:
+            total += num
+    return total
+
+
+print(sumEvens([10, 10, 10, 19, 19, 19]))
+print(sumEvens([12, 15, 14, 25]))
+
 print("MIT TASK Y")
 
 
