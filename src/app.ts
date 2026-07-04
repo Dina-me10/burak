@@ -4,6 +4,7 @@ import router from "./router"; // React (SPA) uchun router
 import routerAdmin from "./routerAdmin";
 import morgan from "morgan";
 import { MORGAN_FORMAT } from "./libs/config";
+import cookieParser from "cookie-parser";
 import { T } from "./libs/types/common";
 
 import session from "express-session";
@@ -21,6 +22,7 @@ const app = express(); //external package
 app.use(express.static(path.join(__dirname, "public"))); //public folderni ochiqlaydi
 app.use(express.urlencoded({ extended: true })); //traditional api ni support qiladi
 app.use(express.json()); //rest api suport
+app.use(cookieParser());
 app.use(morgan(MORGAN_FORMAT)); //login standartlarni qurib beradi
 
 /** 2-SESSIONS **/ //REQ+SESSION TAMGA QURISH /TASDIQLASH
