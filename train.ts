@@ -58,6 +58,6 @@ const numbers = [10, 20, 30, 40, 50, 60, 70];
 const chunk_numbers = chunkArray(numbers, 2);
 console.log(chunk_numbers);
 
-const names = ["dina", "aisha", "alex", "mark"];
-const chunk_names = chunkArray(names, 2);
+const names12 = ["dina", "aisha", "alex", "mark"];
+const chunk_names = chunkArray(names12, 2);
 console.log(chunk_names);

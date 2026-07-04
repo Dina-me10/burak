@@ -9,6 +9,7 @@
     "build": "tsc",
     "train": "nodemon --exec py train.py",
     "train:ts": "ts-node train.ts",
+    "train:js": "nodemon --exec  ts-node train.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "MIT",
