@@ -140,3 +140,36 @@ const colors = ["red", "green", "blue", "yellow"];
 for (const color of colors ) {
     console.log(color);
 }
+
+console.log("string");
+
+console.log("string uzunligi");
+
+const city = "Busan South Korea";
+
+console.log(city.length); 
+
+console.log("stringni katta harfga o'zgartirish");
+
+const city1 = "Madina Mirjalil kizi"
+console.log(city1.toUpperCase());
+
+console.log("stringni kichik harfga o'zgartirish");
+
+const city2 = "MADINA MIRJALIL KIZI"
+console.log(city2.toLowerCase());
+
+console.log("stringni kesish");
+
+const city3 = "Busan South Korea";
+console.log(city3.slice(0, 5));
+
+console.log("stringni almashtirish");
+
+const city4 = "Busan South Korea";
+console.log(city4.replace("Busan", "Seoul"));   
+
+console.log("stringni qidirish");
+
+const city5 = "Busan South Korea";
+console.log(city5.includes("South"));   
