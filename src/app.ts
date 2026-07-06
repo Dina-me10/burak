@@ -20,6 +20,7 @@ const store = new MongoDBStore({
 /** 1-ENTRANCE **/ //MIDDLEWARE DESIGN PATTERN
 const app = express(); //external package
 app.use(express.static(path.join(__dirname, "public"))); //public folderni ochiqlaydi
+app.use("/uploads", express.static("uploads")); //uploads folderni ochiqlaydi
 app.use(express.urlencoded({ extended: true })); //traditional api ni support qiladi
 app.use(express.json()); //rest api suport
 app.use(cookieParser());
