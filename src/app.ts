@@ -1,3 +1,5 @@
+import cors from "cors";
+
 import express from "express";
 import path from "path";
 import router from "./router"; // React (SPA) uchun router
@@ -23,6 +25,11 @@ app.use(express.static(path.join(__dirname, "public"))); //public folderni ochiq
 app.use("/uploads", express.static("uploads")); //uploads folderni ochiqlaydi
 app.use(express.urlencoded({ extended: true })); //traditional api ni support qiladi
 app.use(express.json()); //rest api suport
+app.use(cors({
+  credentials: true,
+  origin: true,
+})
+);
 app.use(cookieParser());
 app.use(morgan(MORGAN_FORMAT)); //login standartlarni qurib beradi
 

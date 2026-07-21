@@ -15,9 +15,9 @@ productController.getProducts = async (req: Request, res: Response) => {
     console.log("getProducts");
     const {page, limit , order, productCollection, search } = req.query;
    const inquiry: ProductInquiry = {
-  order: String(order),
-  page: Number(page),
-  limit: Number(limit),
+  order: order ? String(order) : "createdAt",
+  page: page ? Number(page) : 1,
+  limit: limit ? Number(limit) : 8,
 };
 if (productCollection)
   inquiry.productCollection = productCollection as ProductCollection;
@@ -27,7 +27,7 @@ const result = await productService.getProducts(inquiry);
     
 
 
-    res.status(HttpCode.OK).json({ result: "DONE" });  
+    res.status(HttpCode.OK).json(result);
   } catch (err) {
     console.log("Error, getProducts:", err);
     if (err instanceof Errors) res.status(err.code).json(err);
